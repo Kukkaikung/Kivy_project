@@ -22,9 +22,9 @@ class MainScreen(BoxLayout):
         super(MainScreen, self).__init__(**kwargs)
         self.orientation = 'vertical'
 
-        self.name_input = TextInput(hint_text='Enter your name')
-        self.start_button = Button(text='Start', on_press=self.start_game)
-        self.setting_button = Button(text='Setting', on_press=self.go_to_settings)
+        self.name_input = TextInput(hint_text='Enter your name', font_size = 40)
+        self.start_button = Button(text='Start', font_size = 35, on_press=self.start_game)
+        self.setting_button = Button(text='Setting',font_size = 35, on_press=self.go_to_settings)
 
         self.add_widget(self.name_input)
         self.add_widget(self.start_button)
