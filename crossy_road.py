@@ -17,13 +17,18 @@ class MainScreen(GridLayout):
         super(MainScreen, self).__init__(**kwargs)
         self.cols = 1
 
+        input_layout = GridLayout(cols = 2)
+
         self.name_input = TextInput(hint_text='Enter your name', font_size=40)
         self.confirm_button = Button(text='Confirm', font_size=35, on_press=self.confirm_pressed)
+        
+        input_layout.add_widget(self.name_input)
+        input_layout.add_widget(self.confirm_button)
+        
         self.start_button = Button(text='Start', font_size=35, on_press=self.start_game)
         self.setting_button = Button(text='Setting', font_size=35, on_press=self.go_to_settings)
 
-        self.add_widget(self.name_input)
-        self.add_widget(self.confirm_button)
+        self.add_widget(input_layout)
         self.add_widget(self.start_button)
         self.add_widget(self.setting_button)
 
