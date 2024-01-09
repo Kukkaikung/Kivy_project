@@ -19,7 +19,7 @@ class MainScreen(GridLayout):
 
         input_layout = GridLayout(cols = 2)
 
-        self.name_input = TextInput(hint_text='Enter your name', font_size=40)
+        self.name_input = TextInput(hint_text='Enter your name', font_size=40, multiline=False, padding_y=(70, 0))
         self.confirm_button = Button(text='Confirm', font_size=35, on_press=self.confirm_pressed)
         
         input_layout.add_widget(self.name_input)
