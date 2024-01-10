@@ -20,7 +20,6 @@ class MainScreen(GridLayout):
 
         
         input_layout = GridLayout(cols = 2)
-
         self.name_input = TextInput(hint_text='Enter your name', font_size=40, multiline=False, padding_y=(70, 0))
         self.confirm_button = Button(text='Confirm', font_size=35, on_press=self.confirm_pressed)
         
@@ -64,18 +63,28 @@ class SettingsScreen(GridLayout):
     def __init__(self, **kwargs):
         super(SettingsScreen, self).__init__(**kwargs)
         self.cols = 1
-        self.top_label = Label(text = 'Welcome!', font_size = 20, size_hint_y = None, height = dp(30))
         
+        label_layout = BoxLayout(size_hint_y=None, height=dp(30), spacing=10)
+        
+        your_name_label = Label(text='Your name:', size_hint_x=None, width=Window.width / 2)
+        label_layout.add_widget(your_name_label)
+
+        self.audio_label = Label(text='Audio: On', size_hint_x=None, width=Window.width / 2)
+        label_layout.add_widget(self.audio_label)
+
+        self.add_widget(label_layout)
+
         self.audio_button = Button(text='Audio', on_press=self.audio_settings)
         self.back_button = Button(text='Back', on_press=self.go_back)
 
-        self.add_widget(self.top_label)
         self.add_widget(self.audio_button)
         self.add_widget(self.back_button)
 
     def audio_settings(self, instance):
-        # Add audio settings logic here
-        pass
+        if self.audio_label.text == 'Audio: On':
+            self.audio_label.text = 'Audio: Off'
+        else:
+            self.audio_label.text = 'Audio: On'
 
     def go_back(self, instance):
         MyApp.get_running_app().screen_manager.current = 'main_screen'
