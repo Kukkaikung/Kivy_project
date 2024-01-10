@@ -45,7 +45,7 @@ class MainScreen(GridLayout):
     def confirm_pressed(self, instance):
         name = self.name_input.text
         your_name = Label(text=f'Your name {name}')
-
+        MyApp.get_running_app().settings_screen.set_your_name_label(name)
 
 class GameScreen(GridLayout):
     def __init__(self, **kwargs):
@@ -66,8 +66,8 @@ class SettingsScreen(GridLayout):
         
         label_layout = BoxLayout(size_hint_y=None, height=dp(30), spacing=10)
         
-        your_name_label = Label(text='Your name:', size_hint_x=None, width=Window.width / 2)
-        label_layout.add_widget(your_name_label)
+        self.your_name_label = Label(text='Your name:', size_hint_x=None, width=Window.width / 2)
+        label_layout.add_widget(self.your_name_label)
 
         self.audio_label = Label(text='Audio: On', size_hint_x=None, width=Window.width / 2)
         label_layout.add_widget(self.audio_label)
@@ -88,6 +88,9 @@ class SettingsScreen(GridLayout):
 
     def go_back(self, instance):
         MyApp.get_running_app().screen_manager.current = 'main_screen'
+
+    def set_your_name_label(self, name) :
+        self.your_name_label.text = f'Your name: {name}'
 
 
 class MyApp(App):
