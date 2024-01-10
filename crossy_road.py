@@ -9,6 +9,7 @@ from kivy.uix.image import Image
 from kivy.uix.scatter import Scatter
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.metrics import dp
 
 
 
@@ -17,10 +18,12 @@ class MainScreen(GridLayout):
         super(MainScreen, self).__init__(**kwargs)
         self.cols = 1
 
+        
         input_layout = GridLayout(cols = 2)
 
         self.name_input = TextInput(hint_text='Enter your name', font_size=40, multiline=False, padding_y=(70, 0))
         self.confirm_button = Button(text='Confirm', font_size=35, on_press=self.confirm_pressed)
+        
         
         input_layout.add_widget(self.name_input)
         input_layout.add_widget(self.confirm_button)
@@ -38,6 +41,7 @@ class MainScreen(GridLayout):
 
     def go_to_settings(self, instance):
         MyApp.get_running_app().screen_manager.current = 'settings_screen'
+        
 
     def confirm_pressed(self, instance):
         name = self.name_input.text
@@ -60,10 +64,12 @@ class SettingsScreen(GridLayout):
     def __init__(self, **kwargs):
         super(SettingsScreen, self).__init__(**kwargs)
         self.cols = 1
-
+        self.top_label = Label(text = 'Welcome!', font_size = 20, size_hint_y = None, height = dp(30))
+        
         self.audio_button = Button(text='Audio', on_press=self.audio_settings)
         self.back_button = Button(text='Back', on_press=self.go_back)
 
+        self.add_widget(self.top_label)
         self.add_widget(self.audio_button)
         self.add_widget(self.back_button)
 
