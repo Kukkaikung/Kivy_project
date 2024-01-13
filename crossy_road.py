@@ -11,6 +11,7 @@ from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.metrics import dp
 import random
+from kivy.uix.popup import Popup
 
 
 
@@ -139,6 +140,11 @@ class MinesweeperGame(GridLayout):
                 if self.board[i][j] == 'B':
                     count += 1
         return count
+    
+    def show_result_popup(self, title, message):
+        popup_content = Label(text=message)
+        popup = Popup(title=title, content=popup_content, size_hint=(None, None), size=(400, 200))
+        popup.open()
 
 
 class MyApp(App):
