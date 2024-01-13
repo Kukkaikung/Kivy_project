@@ -39,7 +39,7 @@ class MainScreen(GridLayout):
         self.player_name = '' 
 
     def start_game(self, instance):
-        minesweeper_game = MinesweeperGame(rows=7, cols=7, mines=1, player_name=self.player_name)
+        minesweeper_game = MinesweeperGame(rows=7, cols=7, mines=5, player_name=self.player_name)
         screen = Screen(name='minesweeper_game_screen')
         screen.add_widget(minesweeper_game)
         MyApp.get_running_app().screen_manager.add_widget(screen)
@@ -173,7 +173,7 @@ class MinesweeperGame(GridLayout):
 
 class MinesweeperApp(App):
     def build(self):
-        return MinesweeperGame(rows=7, cols=7, mines=10)
+        return MinesweeperGame(rows=7, cols=7,mines=5)
 
 
 class MyApp(App):
