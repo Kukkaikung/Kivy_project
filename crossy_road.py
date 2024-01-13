@@ -171,6 +171,10 @@ class MinesweeperGame(GridLayout):
         popup = Popup(title=title, content=popup_content, size_hint=(None, None), size=(400, 200))
         popup.open()
 
+class MinesweeperApp(App):
+    def build(self):
+        return MinesweeperGame(rows=7, cols=7, mines=10)
+
 
 class MyApp(App):
     def build(self):
