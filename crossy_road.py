@@ -145,6 +145,11 @@ class MinesweeperGame(GridLayout):
         for button in self.buttons:
             button.disabled = True
         self.show_result_popup("Game Over", f'{self.player_name}, You hit a bomb!')
+
+    def win_game(self):
+        for button in self.buttons:
+            button.disabled = True
+        self.show_result_popup("Congratulations!", f"You Win, {self.player_name}!")
     
     def show_result_popup(self, title, message):
         popup_content = Label(text=message)
