@@ -51,9 +51,9 @@ class MainScreen(GridLayout):
         
 
     def confirm_pressed(self, instance):
-        name = self.name_input.text
-        your_name = Label(text=f'Your name {name}')
-        MyApp.get_running_app().settings_screen.set_your_name_label(name)
+        self.player_name = self.name_input.text
+        your_name = Label(text=f'Your name {self.player_name}')
+        MyApp.get_running_app().settings_screen.set_your_name_label(self.player_name)
 
 class GameScreen(GridLayout):
     def __init__(self, **kwargs):
@@ -164,7 +164,7 @@ class MinesweeperGame(GridLayout):
     def win_game(self):
         for button in self.buttons:
             button.disabled = True
-        self.show_result_popup("Congratulations!", f"You Win, {self.player_name}!")
+        self.show_result_popup("Congratulations!", f"{self.player_name}, You Win!")
     
     def show_result_popup(self, title, message):
         popup_content = Label(text=message)
