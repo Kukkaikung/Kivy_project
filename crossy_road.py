@@ -129,6 +129,21 @@ class MinesweeperGame(GridLayout):
                     )
                     self.add_widget(button)
                     self.buttons.append(button)
+
+    def on_button_press(self, row, col):
+        button_index = row * self.cols + col
+        button = self.buttons[button_index]
+
+        if self.is_bomb(row, col):
+            button.text = '💣'
+            self.end_game()
+        else:
+            bomb_count = self.count_bombs_around(row, col)
+            button.text = str(bomb_count)
+            self.unopened_cells -= 1
+
+            if self.unopened_cells == 0:
+                self.win_game()
     
     def is_bomb(self, row, col):
         return True if self.board[row][col] == 'B' else False
