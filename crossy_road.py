@@ -93,6 +93,18 @@ class SettingsScreen(GridLayout):
         self.your_name_label.text = f'Your name: {name}'
 
 
+class MinesweeperGame(GridLayout):
+    def __init__(self, rows, cols, mines, player_name='', **kwargs):
+        super(MinesweeperGame, self).__init__(**kwargs)
+        self.rows = rows
+        self.cols = cols
+        self.mines = mines
+        self.buttons = []
+        self.unopened_cells = rows * cols - mines
+        self.board = [[' ' for _ in range(self.cols)] for _ in range(self.rows)]
+        self.player_name = player_name
+
+
 class MyApp(App):
     def build(self):
         self.screen_manager = ScreenManager()
