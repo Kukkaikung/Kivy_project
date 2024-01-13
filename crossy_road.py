@@ -10,6 +10,7 @@ from kivy.uix.scatter import Scatter
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.metrics import dp
+import random
 
 
 
@@ -109,6 +110,24 @@ class MinesweeperGame(GridLayout):
         self.unopened_cells = rows * cols - mines
         self.board = [[' ' for _ in range(self.cols)] for _ in range(self.rows)]
         self.player_name = player_name
+        self.create_board()
+
+    def create_board(self):
+        bomb_positions = random.sample(range(self.rows * self.cols), self.mines)
+        for pos in bomb_positions:
+            row = pos // self.cols
+            col = pos % self.cols
+            self.board[row][col] = 'B'
+
+        for row in range(self.rows):
+            for col in range(self.cols):
+                if row < 7 and col < 7:
+                    button = Button(
+                        text='',
+                        on_press=lambda instance, row=row, col=col: self.on_button_press(row, col)
+                    )
+                    self.add_widget(button)
+                    self.buttons.append(button)
 
 
 class MyApp(App):
