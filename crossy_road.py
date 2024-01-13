@@ -131,6 +131,14 @@ class MinesweeperGame(GridLayout):
     
     def is_bomb(self, row, col):
         return True if self.board[row][col] == 'B' else False
+    
+    def count_bombs_around(self, row, col):
+        count = 0
+        for i in range(max(0, row - 1), min(self.rows, row + 2)):
+            for j in range(max(0, col - 1), min(self.cols, col + 2)):
+                if self.board[i][j] == 'B':
+                    count += 1
+        return count
 
 
 class MyApp(App):
