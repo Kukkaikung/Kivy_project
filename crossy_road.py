@@ -128,6 +128,9 @@ class MinesweeperGame(GridLayout):
                     )
                     self.add_widget(button)
                     self.buttons.append(button)
+    
+    def is_bomb(self, row, col):
+        return True if self.board[row][col] == 'B' else False
 
 
 class MyApp(App):
