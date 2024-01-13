@@ -34,9 +34,15 @@ class MainScreen(GridLayout):
         self.add_widget(self.start_button)
         self.add_widget(self.setting_button)
 
+        self.player_name = '' 
+
     def start_game(self, instance):
-        MyApp.get_running_app().set_name(self.name_input.text)
-        MyApp.get_running_app().screen_manager.current = 'game_screen'
+        minesweeper_game = MinesweeperGame(rows=7, cols=7, mines=1, player_name=self.player_name)
+        screen = Screen(name='minesweeper_game_screen')
+        screen.add_widget(minesweeper_game)
+        MyApp.get_running_app().screen_manager.add_widget(screen)
+
+        MyApp.get_running_app().screen_manager.current = 'minesweeper_game_screen'
 
     def go_to_settings(self, instance):
         MyApp.get_running_app().screen_manager.current = 'settings_screen'
