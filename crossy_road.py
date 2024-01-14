@@ -133,7 +133,12 @@ class MinesweeperGame(GridLayout):
         self.board = [[' ' for _ in range(self.cols)] for _ in range(self.rows)]
         self.player_name = player_name
         self.create_board()
+        self.explosion_sound = SoundLoader.load('C:\\Users\\ASUS\\Desktop\\VS code\\PsuTerm02\\241-152\\gui\\venv\\kivy_project\\New_Nuke_Effect.mp3')
 
+    def play_explosion_sound(self):
+        if self.explosion_sound:
+            self.explosion_sound.play()
+    
     def create_board(self):
         bomb_positions = random.sample(range(self.rows * self.cols), self.mines)
         for pos in bomb_positions:
@@ -158,6 +163,7 @@ class MinesweeperGame(GridLayout):
         if self.is_bomb(row, col):
             button.text = '💣'
             self.end_game()
+            self.play_explosion_sound()
         else:
             bomb_count = self.count_bombs_around(row, col)
             button.text = str(bomb_count)
