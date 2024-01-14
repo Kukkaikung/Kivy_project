@@ -13,7 +13,7 @@ from kivy.metrics import dp
 import random
 from kivy.uix.popup import Popup
 from kivy.core.audio import SoundLoader
-
+import webbrowser
 
 
 class MainScreen(GridLayout):
@@ -136,15 +136,19 @@ class DontPushScreen(GridLayout):
         super(DontPushScreen, self).__init__(**kwargs)
         self.cols = 1
 
-        
-
         back_button = Button(text='Back', font_size=35, on_press=self.go_back)
+        youtube_button = Button(text="This is the last warning, don't push!!", font_size=35, on_press=self.open_youtube)
+        
         self.add_widget(back_button)
-
+        self.add_widget(youtube_button)
+    
     def go_back(self, instance):
         MyApp.get_running_app().main_screen.play_background_music()
-        
         MyApp.get_running_app().screen_manager.current = 'main_screen'
+
+    def open_youtube(self, instance):
+        webbrowser.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ") 
+        
 
 class MinesweeperGame(GridLayout):
     def __init__(self, rows, cols, mines, player_name='', **kwargs):
