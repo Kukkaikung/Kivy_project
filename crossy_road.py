@@ -134,10 +134,15 @@ class MinesweeperGame(GridLayout):
         self.player_name = player_name
         self.create_board()
         self.explosion_sound = SoundLoader.load('C:\\Users\\ASUS\\Desktop\\VS code\\PsuTerm02\\241-152\\gui\\venv\\kivy_project\\New_Nuke_Effect.mp3')
+        self.congrat_sound = SoundLoader.load('C:\\Users\\ASUS\\Desktop\\VS code\\PsuTerm02\\241-152\\gui\\venv\\kivy_project\\Congratulations-_BBC-Sound-Effect-into-Cheer-Into-Applause-Inclusion_.mp3')
 
     def play_explosion_sound(self):
         if self.explosion_sound:
             self.explosion_sound.play()
+    
+    def play_congrat_sound(self):
+        if self.congrat_sound:
+            self.congrat_sound.play()
     
     def create_board(self):
         bomb_positions = random.sample(range(self.rows * self.cols), self.mines)
@@ -195,7 +200,7 @@ class MinesweeperGame(GridLayout):
             button.disabled = True
         self.show_result_popup("Congratulations!", f"{self.player_name}, You Win!")
         MyApp.get_running_app().main_screen.stop_background_music() 
-
+        self.play_congrat_sound()
 
     def show_result_popup(self, title, message):
         popup_content = Label(text=message)
