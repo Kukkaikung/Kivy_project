@@ -50,6 +50,7 @@ class MainScreen(GridLayout):
 
         MyApp.get_running_app().screen_manager.current = 'minesweeper_game_screen'
 
+
     def go_to_settings(self, instance):
         MyApp.get_running_app().screen_manager.current = 'settings_screen'
         
@@ -58,6 +59,16 @@ class MainScreen(GridLayout):
         self.player_name = self.name_input.text
         your_name = Label(text=f'Your name {self.player_name}')
         MyApp.get_running_app().settings_screen.set_your_name_label(self.player_name)
+
+
+    def play_background_music(self):
+        if not self.background_music.state == 'play':
+            self.background_music.play()
+
+    def stop_background_music(self):
+        if self.background_music.state == 'play':
+            self.background_music.stop()
+
 
 class GameScreen(GridLayout):
     def __init__(self, **kwargs):
@@ -92,11 +103,17 @@ class SettingsScreen(GridLayout):
         self.add_widget(self.audio_button)
         self.add_widget(self.back_button)
 
+        self.audio_status = True
+
     def audio_settings(self, instance):
-        if self.audio_label.text == 'Audio: On':
+        if self.audio_status:
+            self.audio_status = False
             self.audio_label.text = 'Audio: Off'
+            MyApp.get_running_app().main_screen.stop_background_music()
         else:
+            self.audio_status = True
             self.audio_label.text = 'Audio: On'
+            MyApp.get_running_app().main_screen.play_background_music()
 
     def go_back(self, instance):
         MyApp.get_running_app().screen_manager.current = 'main_screen'
@@ -164,12 +181,16 @@ class MinesweeperGame(GridLayout):
         for button in self.buttons:
             button.disabled = True
         self.show_result_popup("Game Over", f'{self.player_name}, You hit a bomb!')
+        MyApp.get_running_app().main_screen.stop_background_music() 
+
 
     def win_game(self):
         for button in self.buttons:
             button.disabled = True
         self.show_result_popup("Congratulations!", f"{self.player_name}, You Win!")
-    
+        MyApp.get_running_app().main_screen.stop_background_music() 
+
+
     def show_result_popup(self, title, message):
         popup_content = Label(text=message)
         popup = Popup(title=title, content=popup_content, size_hint=(None, None), size=(400, 200))
