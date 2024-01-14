@@ -35,10 +35,12 @@ class MainScreen(GridLayout):
         
         self.start_button = Button(text='Start', font_size=35, on_press=self.start_game)
         self.setting_button = Button(text='Setting', font_size=35, on_press=self.go_to_settings)
+        self.dont_push_button = Button(text="Don't push", font_size=35, on_press=self.dont_push_pressed)
 
         self.add_widget(input_layout)
         self.add_widget(self.start_button)
         self.add_widget(self.setting_button)
+        self.add_widget(self.dont_push_button)
 
         self.player_name = '' 
 
@@ -60,6 +62,14 @@ class MainScreen(GridLayout):
         your_name = Label(text=f'Your name {self.player_name}')
         MyApp.get_running_app().settings_screen.set_your_name_label(self.player_name)
 
+    def dont_push_pressed(self, instance):
+        dont_push_screen = DontPushScreen()
+        screen = Screen(name='dont_push_screen')
+        screen.add_widget(dont_push_screen)
+        MyApp.get_running_app().screen_manager.add_widget(screen)
+
+        MyApp.get_running_app().screen_manager.current = 'dont_push_screen'
+        self.stop_background_music()
 
     def play_background_music(self):
         if not self.background_music.state == 'play':
@@ -121,6 +131,20 @@ class SettingsScreen(GridLayout):
     def set_your_name_label(self, name) :
         self.your_name_label.text = f'Your name: {name}'
 
+class DontPushScreen(GridLayout):
+    def __init__(self, **kwargs):
+        super(DontPushScreen, self).__init__(**kwargs)
+        self.cols = 1
+
+        
+
+        back_button = Button(text='Back', font_size=35, on_press=self.go_back)
+        self.add_widget(back_button)
+
+    def go_back(self, instance):
+        MyApp.get_running_app().main_screen.play_background_music()
+        
+        MyApp.get_running_app().screen_manager.current = 'main_screen'
 
 class MinesweeperGame(GridLayout):
     def __init__(self, rows, cols, mines, player_name='', **kwargs):
@@ -229,6 +253,11 @@ class MyApp(App):
         self.settings_screen = SettingsScreen()
         screen = Screen(name='settings_screen')
         screen.add_widget(self.settings_screen)
+        self.screen_manager.add_widget(screen)
+
+        self.dont_push_screen = DontPushScreen()
+        screen = Screen(name='dont_push_screen')
+        screen.add_widget(self.dont_push_screen)
         self.screen_manager.add_widget(screen)
 
         return self.screen_manager
