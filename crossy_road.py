@@ -35,11 +35,13 @@ class MainScreen(GridLayout):
         
         self.start_button = Button(text='Start', font_size=35, on_press=self.start_game)
         self.setting_button = Button(text='Setting', font_size=35, on_press=self.go_to_settings)
+        self.gamescreen_button = Button(text='Tutorial',font_size=35, on_press=self.go_gamescreen) #Tutorial Button
         self.dont_push_button = Button(text="Don't push", font_size=35, on_press=self.dont_push_pressed)
 
         self.add_widget(input_layout)
         self.add_widget(self.start_button)
         self.add_widget(self.setting_button)
+        self.add_widget(self.gamescreen_button) #TutorialButton
         self.add_widget(self.dont_push_button)
 
         self.player_name = '' 
@@ -55,6 +57,9 @@ class MainScreen(GridLayout):
 
     def go_to_settings(self, instance):
         MyApp.get_running_app().screen_manager.current = 'settings_screen'
+
+    def go_gamescreen(self, instance): #go to tutorial
+        MyApp.get_running_app().screen_manager.current = 'game_screen'
         
 
     def confirm_pressed(self, instance):
@@ -84,12 +89,14 @@ class GameScreen(GridLayout):
     def __init__(self, **kwargs):
         super(GameScreen, self).__init__(**kwargs)
         self.cols = 1
-        self.name_label = Label(text='')
-
+        self.name_label = Label(text=" How to play: Find the bomb.\n By left-clicking on a square, if it's not a bomb,\n it will show a number that tells you how many bombs there are around the square.\n Open all the squares that aren't bombs to win.", font_size=15)
+        self.back_button = self.back_button = Button(text='Back', on_press=self.go_back)
+        
         self.add_widget(self.name_label)
+        self.add_widget(self.back_button)
 
-    def set_name(self, name):
-        self.name_label.text = f'Your name: {name}'
+    def go_back(self, instance):
+        MyApp.get_running_app().screen_manager.current = 'main_screen'
 
 
 class SettingsScreen(GridLayout):
