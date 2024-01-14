@@ -12,6 +12,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.metrics import dp
 import random
 from kivy.uix.popup import Popup
+from kivy.core.audio import SoundLoader
 
 
 
@@ -20,6 +21,9 @@ class MainScreen(GridLayout):
         super(MainScreen, self).__init__(**kwargs)
         self.cols = 1
 
+        self.background_music = SoundLoader.load('C:\\Users\\ASUS\\Desktop\\VS code\\PsuTerm02\\241-152\\gui\\venv\\kivy_project\\Toothless-Dancing-Meme-_NEW-VARIATIONS_.mp3')
+        self.background_music.loop = True
+        self.background_music.play()
         
         input_layout = GridLayout(cols = 2)
         self.name_input = TextInput(hint_text='Enter your name', font_size=40, multiline=False, padding_y=(70, 0))
@@ -39,7 +43,7 @@ class MainScreen(GridLayout):
         self.player_name = '' 
 
     def start_game(self, instance):
-        minesweeper_game = MinesweeperGame(rows=7, cols=7, mines=5, player_name=self.player_name)
+        minesweeper_game = MinesweeperGame(rows=7, cols=7, mines=7, player_name=self.player_name)
         screen = Screen(name='minesweeper_game_screen')
         screen.add_widget(minesweeper_game)
         MyApp.get_running_app().screen_manager.add_widget(screen)
@@ -173,7 +177,7 @@ class MinesweeperGame(GridLayout):
 
 class MinesweeperApp(App):
     def build(self):
-        return MinesweeperGame(rows=7, cols=7,mines=5)
+        return MinesweeperGame(rows=7, cols=7,mines=7)
 
 
 class MyApp(App):
